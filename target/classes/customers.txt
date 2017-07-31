@@ -1,5 +1,0 @@
-apple|Apple
-default|Default
-ford|Ford
-nike|Nike
-unilever|Unilever
