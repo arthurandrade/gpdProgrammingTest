@@ -1,16 +1,16 @@
 # Programming Skill (GDP)
 
-Creation of a rest service for checkout system. For more information, read the pdf contained in the repository.
+Creation of a rest service for checkout system. For more information, read the pdf contained in this repository (GDP_SoftwareEngineer_Test.pdf).
 The system was built using java 8 and springboot. A web application was developed to consume the Rest service. The web application was building using angularjs and bootstrap.
 
-### Pre-requisites
+### Prerequisites
 
 ```
 - Java 8
 - Maven
 ```
 
-### Installing Pre-requisites
+### Installing Prerequisites
 
 - Installing Java
 
