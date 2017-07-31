@@ -18,7 +18,6 @@ Open the terminal and update the package index:
 
 ```
 sudo apt-get update
-sudo add-apt-repository ppa:webupd8team/java
 ```
 
 Add the Oracle PPA, then update your package repository.
