@@ -1,0 +1,3 @@
+classic|Classic Ad|269.99
+standout|Standout Ad|322.99
+premium|Premium Ad|394.99
