@@ -35,5 +35,13 @@ public class MoreThanX extends RuleDiscount {
     public double ruleDiscount(double price) {
         return price - newPrice;
     }
+    
+    @Override
+    public List<ProductCard> findProducts(Invoice invoice, String idProduct) {
+        List<ProductCard> productDiscont = invoice.getProducts().stream()
+                .filter(product -> product.getProduct().getId().contains(idProduct))
+                .collect(Collectors.toList());
+        return productDiscont;
+    }
 
 }

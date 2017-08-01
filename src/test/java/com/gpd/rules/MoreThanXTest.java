@@ -62,7 +62,7 @@ public class MoreThanXTest {
     }
 
     @Test
-    public void ShouldGetDiscount() {
+    public void ShouldGetDiscount3Products() {
 
         service.add(new MoreThanX("premium", 3, 389.99));
         service.addProductFor("premium");
@@ -70,9 +70,20 @@ public class MoreThanXTest {
         service.addProductFor("premium");
         assertEquals(3 * 389.99, service.total(), 0.001);
     }
+    
+    @Test
+    public void ShouldGetDiscount4Products() {
+
+        service.add(new MoreThanX("premium", 3, 389.99));
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+        assertEquals(4 * 389.99, service.total(), 0.001);
+    }    
 
     @Test
-    public void ShouldGetDiscountDoubleProducts() {
+    public void ShouldGetDiscountFor6Products() {
 
         service.add(new MoreThanX("premium", 3, 389.99));
         service.addProductFor("premium");
