@@ -1,13 +1,13 @@
 package com.gpd.model.customer;
 
-import com.gpd.rules.RuleDiscount;
+import com.gpd.rules.DiscountRule;
 
 public abstract class Customers {
 
-    protected RuleDiscount[] rules = {};
+    protected DiscountRule[] rules = {};
 
-    public abstract RuleDiscount[] getRules();
+    public abstract DiscountRule[] getRules();
 
-    public abstract void setRules(RuleDiscount... rules);
+    public abstract void setRules(DiscountRule... rules);
 
 }

@@ -1,24 +1,24 @@
 package com.gpd.model.customer;
 
-import com.gpd.rules.BuyXForY;
-import com.gpd.rules.MoreThanX;
+import com.gpd.rules.BuyXProductsPayForY;
+import com.gpd.rules.MoreThanXProductForYProduct;
 import com.gpd.rules.ProductDiscount;
-import com.gpd.rules.RuleDiscount;
+import com.gpd.rules.DiscountRule;
 
 public class Ford extends Customers {
-    private RuleDiscount[] rules = { new BuyXForY(5, 4, "classic"), new ProductDiscount("standout", 309.99),
-            new MoreThanX("premium", 3, 389.99) };
+    private DiscountRule[] rules = { new BuyXProductsPayForY(5, 4, "classic"), new ProductDiscount("standout", 309.99),
+            new MoreThanXProductForYProduct("premium", 3, 389.99) };
 
     public Ford() {
     }
 
     @Override
-    public RuleDiscount[] getRules() {
+    public DiscountRule[] getRules() {
         return rules;
     }
 
     @Override
-    public void setRules(RuleDiscount... rules) {
+    public void setRules(DiscountRule... rules) {
         this.rules = rules;
     }
 

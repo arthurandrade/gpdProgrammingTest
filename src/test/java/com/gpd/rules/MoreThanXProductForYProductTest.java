@@ -3,6 +3,7 @@ package com.gpd.rules;
 import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +19,9 @@ import com.gpd.service.ProductService;
 import com.gpd.service.ProductServiceImpl;
 
 @RunWith(SpringRunner.class)
-public class BuyXForYTest {
+public class MoreThanXProductForYProductTest {
 
-    Product otheProduct;
+    Product product;
 
     @TestConfiguration
     static class Configuration {
@@ -46,54 +47,55 @@ public class BuyXForYTest {
         service.clear();
     }
 
-    @Test
-    public void ShouldGetDiscount() {
-
-        Product product = productService.findBy("premium");
-
-        service.add(new BuyXForY(3, 2, "premium"));
-        service.addProductFor("premium");
-        service.addProductFor("premium");
-        service.addProductFor("premium");
-
-        assertEquals(2 * product.getPrice(), service.total(), 0.01);
+    @Before
+    public void DefinePrices() {
+        product = productService.findBy("premium");
     }
 
     @Test
-    public void ShouldGetDiscountOnce() {
+    public void ShouldntGetDiscount() {
 
-        Product product = productService.findBy("premium");
-
-        service.add(new BuyXForY(3, 2, "premium"));
+        service.add(new MoreThanXProductForYProduct("premium", 3, 389.99));
         service.addProductFor("premium");
         service.addProductFor("premium");
-        service.addProductFor("premium");
-        assertEquals(2 * product.getPrice(), service.total(), 0.01);
-
-        service.addProductFor("premium");
-        Invoice invoice = service.getInvoice();
-
-        assertEquals(4, invoice.getProducts().size());
-        assertEquals(3 * product.getPrice(), invoice.getTotal(), 0.01);
+        assertEquals(2 * product.getPrice(), service.total(), 0.001);
     }
 
     @Test
-    public void ShouldGetDiscountTwice() {
+    public void ShouldGetDiscount3Products() {
 
-        Product product = productService.findBy("premium");
+        service.add(new MoreThanXProductForYProduct("premium", 3, 389.99));
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+        assertEquals(3 * 389.99, service.total(), 0.001);
+    }
+    
+    @Test
+    public void ShouldGetDiscount4Products() {
 
-        service.add(new BuyXForY(3, 2, "premium"));
+        service.add(new MoreThanXProductForYProduct("premium", 3, 389.99));
         service.addProductFor("premium");
         service.addProductFor("premium");
         service.addProductFor("premium");
-        assertEquals(2 * product.getPrice(), service.total(), 0.01);
+        service.addProductFor("premium");
+        assertEquals(4 * 389.99, service.total(), 0.001);
+    }    
 
+    @Test
+    public void ShouldGetDiscountFor6Products() {
+
+        service.add(new MoreThanXProductForYProduct("premium", 3, 389.99));
         service.addProductFor("premium");
         service.addProductFor("premium");
         service.addProductFor("premium");
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+
         Invoice invoice = service.getInvoice();
 
         assertEquals(6, invoice.getProducts().size());
-        assertEquals(4 * product.getPrice(), invoice.getTotal(), 0.01);
+        assertEquals(6 * 389.99, invoice.getTotal(), 0.001);
     }
 }

@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.gpd.model.checkout.Invoice;
-import com.gpd.model.product.ProductCard;
+import com.gpd.model.product.CardProduct;
 
-public class BuyXForY extends RuleDiscount {
+public class BuyXProductsPayForY extends DiscountRule {
 
     private int x;
     private int y;
     private String idProduct;
 
-    public BuyXForY(int x, int y, String idProduct) {
+    public BuyXProductsPayForY(int x, int y, String idProduct) {
         this.x = x;
         this.y = y;
         this.idProduct = idProduct;
@@ -20,19 +20,19 @@ public class BuyXForY extends RuleDiscount {
 
     @Override
     public boolean isValid(Invoice invoice) {
-        List<ProductCard> productDiscont = findProducts(invoice, idProduct);
-        return productDiscont.size() >= x;
+        List<CardProduct> eligibleProducts = findProducts(invoice, idProduct);
+        return eligibleProducts.size() >= x;
     }
 
     @Override
-    public Invoice applyDiscount(Invoice invoice) {
-        List<ProductCard> products = invoice.getProducts();
+    public Invoice processDiscount(Invoice invoice) {
+        List<CardProduct> products = invoice.getProducts();
         invoice.setProducts(products.stream().map(p -> processProduct(p, idProduct)).collect(Collectors.toList()));
         return invoice;
     }
 
     @Override
-    public double ruleDiscount(double price) {
+    public double applyDiscount(double price) {
         return ((x - y) * price) / x;
     }
 

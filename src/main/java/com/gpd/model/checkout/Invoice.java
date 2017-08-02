@@ -3,13 +3,13 @@ package com.gpd.model.checkout;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gpd.model.product.ProductCard;
+import com.gpd.model.product.CardProduct;
 import com.gpd.utils.DoubleUtils;
 
 public class Invoice {
 
     private double total;
-    private List<ProductCard> products = new ArrayList<ProductCard>();
+    private List<CardProduct> products = new ArrayList<CardProduct>();
 
     public double getTotal() {
         return total;
@@ -19,15 +19,15 @@ public class Invoice {
         this.total = total;
     }
 
-    public List<ProductCard> getProducts() {
+    public List<CardProduct> getProducts() {
         return products;
     }
 
-    public void setProducts(List<ProductCard> products) {
+    public void setProducts(List<CardProduct> products) {
         this.products = products;
     }
 
-    public void addProduct(ProductCard product) {
+    public void addProduct(CardProduct product) {
         this.products.add(product);
     }
 
@@ -36,7 +36,7 @@ public class Invoice {
         setTotal(DoubleUtils.round2(total));
     }
 
-    private double calculatePrice(ProductCard product) {
+    private double calculatePrice(CardProduct product) {
         return product.getPrice() - product.getDiscount();
     }
 

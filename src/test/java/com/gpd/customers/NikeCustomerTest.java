@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.gpd.model.customer.Customers;
 import com.gpd.model.customer.Nike;
-import com.gpd.rules.MoreThanX;
+import com.gpd.rules.MoreThanXProductForYProduct;
 import com.gpd.service.CheckoutService;
 import com.gpd.service.CheckoutServiceImpl;
 import com.gpd.service.ProductService;
@@ -46,7 +46,7 @@ public class NikeCustomerTest {
     public void ShouldCalculateDiscount() {
         Customers nike = new Nike();
         service.add(nike.getRules());
-        service.add(new MoreThanX("premium", 4, 379.99));
+        service.add(new MoreThanXProductForYProduct("premium", 4, 379.99));
         service.addProductFor("premium");
         service.addProductFor("premium");
         service.addProductFor("premium");

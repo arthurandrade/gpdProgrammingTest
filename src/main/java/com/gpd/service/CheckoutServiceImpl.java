@@ -9,13 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.gpd.model.checkout.Invoice;
 import com.gpd.model.product.Product;
-import com.gpd.model.product.ProductCard;
-import com.gpd.rules.RuleDiscount;
+import com.gpd.model.product.CardProduct;
+import com.gpd.rules.DiscountRule;
 
 @Service("checkoutService")
 public class CheckoutServiceImpl implements CheckoutService {
 
-    List<RuleDiscount> rules = new ArrayList<RuleDiscount>();
+    List<DiscountRule> rules = new ArrayList<DiscountRule>();
     Invoice invoice = new Invoice();
 
     @Autowired
@@ -27,7 +27,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         if (newProduct == null) {
             throw new RuntimeException("Product not found!");
         }
-        invoice.addProduct(new ProductCard(newProduct));
+        invoice.addProduct(new CardProduct(newProduct));
         calculateDiscount();
         invoice.calculateTotal();
     }
@@ -40,13 +40,13 @@ public class CheckoutServiceImpl implements CheckoutService {
     private void calculateDiscount() {
         rules.forEach(rule -> {
             if (rule.isValid(invoice)) {
-                invoice = rule.applyDiscount(invoice);
+                invoice = rule.processDiscount(invoice);
             }
         });
     }
 
     @Override
-    public void add(RuleDiscount... rules) {
+    public void add(DiscountRule... rules) {
         this.rules.addAll(Arrays.asList(rules));
     }
 

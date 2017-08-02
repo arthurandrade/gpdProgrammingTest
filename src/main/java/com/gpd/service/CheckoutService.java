@@ -1,7 +1,7 @@
 package com.gpd.service;
 
 import com.gpd.model.checkout.Invoice;
-import com.gpd.rules.RuleDiscount;
+import com.gpd.rules.DiscountRule;
 
 public interface CheckoutService {
 
@@ -9,7 +9,7 @@ public interface CheckoutService {
 
     public double total();
 
-    public void add(RuleDiscount... rules);
+    public void add(DiscountRule... rules);
 
     public Invoice getInvoice();
 
