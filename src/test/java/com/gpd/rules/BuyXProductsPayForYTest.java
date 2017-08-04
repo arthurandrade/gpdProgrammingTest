@@ -18,7 +18,7 @@ import com.gpd.service.ProductService;
 import com.gpd.service.ProductServiceImpl;
 
 @RunWith(SpringRunner.class)
-public class BuyXForYTest {
+public class BuyXProductsPayForYTest {
 
     Product otheProduct;
 
@@ -51,7 +51,7 @@ public class BuyXForYTest {
 
         Product product = productService.findBy("premium");
 
-        service.add(new BuyXForY(3, 2, "premium"));
+        service.add(new BuyXProductsPayForY(3, 2, "premium"));
         service.addProductFor("premium");
         service.addProductFor("premium");
         service.addProductFor("premium");
@@ -64,7 +64,7 @@ public class BuyXForYTest {
 
         Product product = productService.findBy("premium");
 
-        service.add(new BuyXForY(3, 2, "premium"));
+        service.add(new BuyXProductsPayForY(3, 2, "premium"));
         service.addProductFor("premium");
         service.addProductFor("premium");
         service.addProductFor("premium");
@@ -82,7 +82,7 @@ public class BuyXForYTest {
 
         Product product = productService.findBy("premium");
 
-        service.add(new BuyXForY(3, 2, "premium"));
+        service.add(new BuyXProductsPayForY(3, 2, "premium"));
         service.addProductFor("premium");
         service.addProductFor("premium");
         service.addProductFor("premium");

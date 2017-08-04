@@ -3,13 +3,13 @@ package com.gpd.model.product;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties({ "price" })
-public class ProductCard {
+public class CardProduct {
 
     private double discount;
     private Product product;
     private Boolean applied;
 
-    public ProductCard(Product product) {
+    public CardProduct(Product product) {
         this.product = product;
         this.discount = 0.00;
         this.applied = false;

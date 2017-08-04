@@ -8,7 +8,7 @@ angular.module("shoppingList").controller("shoppingListCtrl", function ($scope, 
         checkoutService.getCustomers().success(function (data) {
             $scope.customers = data;
         }).error(function (data, status) {
-            $scope.message = "Aconteceu um problema: " + data;
+            $scope.message = "There was a problem: " + data;
         });
     };
 
@@ -16,7 +16,7 @@ angular.module("shoppingList").controller("shoppingListCtrl", function ($scope, 
         checkoutService.getProducts().success(function (data) {
             $scope.products = data;
         }).error(function (data, status) {
-            $scope.message = "Aconteceu um problema: " + data;
+            $scope.message = "There was a problem: " + data;
         });
     };
     $scope.checkOut = function () {

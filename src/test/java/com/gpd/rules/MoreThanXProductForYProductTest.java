@@ -19,7 +19,7 @@ import com.gpd.service.ProductService;
 import com.gpd.service.ProductServiceImpl;
 
 @RunWith(SpringRunner.class)
-public class MoreThanXTest {
+public class MoreThanXProductForYProductTest {
 
     Product product;
 
@@ -55,26 +55,37 @@ public class MoreThanXTest {
     @Test
     public void ShouldntGetDiscount() {
 
-        service.add(new MoreThanX("premium", 3, 389.99));
+        service.add(new MoreThanXProductForYProduct("premium", 3, 389.99));
         service.addProductFor("premium");
         service.addProductFor("premium");
         assertEquals(2 * product.getPrice(), service.total(), 0.001);
     }
 
     @Test
-    public void ShouldGetDiscount() {
+    public void ShouldGetDiscount3Products() {
 
-        service.add(new MoreThanX("premium", 3, 389.99));
+        service.add(new MoreThanXProductForYProduct("premium", 3, 389.99));
         service.addProductFor("premium");
         service.addProductFor("premium");
         service.addProductFor("premium");
         assertEquals(3 * 389.99, service.total(), 0.001);
     }
+    
+    @Test
+    public void ShouldGetDiscount4Products() {
+
+        service.add(new MoreThanXProductForYProduct("premium", 3, 389.99));
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+        service.addProductFor("premium");
+        assertEquals(4 * 389.99, service.total(), 0.001);
+    }    
 
     @Test
-    public void ShouldGetDiscountDoubleProducts() {
+    public void ShouldGetDiscountFor6Products() {
 
-        service.add(new MoreThanX("premium", 3, 389.99));
+        service.add(new MoreThanXProductForYProduct("premium", 3, 389.99));
         service.addProductFor("premium");
         service.addProductFor("premium");
         service.addProductFor("premium");
