@@ -14,6 +14,8 @@ public abstract class DiscountRule {
     public abstract Invoice processDiscount(Invoice invoice);
 
     public abstract double applyDiscount(double price);
+    
+    public ApplyIn applyIn = ApplyIn.Product;
 
     public List<CardProduct> findProducts(Invoice invoice, String idProduct) {
         List<CardProduct> eligibleProducts = invoice.getProducts().stream()

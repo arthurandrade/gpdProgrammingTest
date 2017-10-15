@@ -1,4 +1,4 @@
-package com.gpd.customers;
+package com.gpd.rules;
 
 import static org.junit.Assert.assertEquals;
 
@@ -10,16 +10,16 @@ import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.gpd.model.customer.Customers;
-import com.gpd.model.customer.Nike;
-import com.gpd.rules.MoreThanXProductForYProduct;
+import com.gpd.model.product.Product;
 import com.gpd.service.CheckoutService;
 import com.gpd.service.CheckoutServiceImpl;
 import com.gpd.service.ProductService;
 import com.gpd.service.ProductServiceImpl;
 
 @RunWith(SpringRunner.class)
-public class NikeCustomerTest {
+public class BlackFridayTest {
+	
+	Product otheProduct;
 
     @TestConfiguration
     static class Configuration {
@@ -37,32 +37,25 @@ public class NikeCustomerTest {
     @Autowired
     private CheckoutService service;
 
+    @Autowired
+    private ProductService productService;
+
     @After
     public void cleanCart() {
         service.clear();
     }
 
     @Test
-    public void ShouldCalculateDiscount() {
-        Customers nike = new Nike();
-        service.add(nike.getRules());
+    public void ShouldGetDiscount() {
+
+        Product product = productService.findBy("premium");
+
+        service.add(new BuyXProductsPayForY(3, 2, "premium"), new BlackFriday());
         service.addProductFor("premium");
         service.addProductFor("premium");
         service.addProductFor("premium");
-        service.addProductFor("premium");
-        double value = service.total();
-        assertEquals(1519.96, value, 0.001);
+
+        assertEquals(2 * product.getPrice(), service.total(), 0.01);
     }
 
-    @Test
-    public void ShouldNotApplyDiscount() {
-        Customers nike = new Nike();
-        service.add(nike.getRules());
-        service.addProductFor("premium");
-        service.addProductFor("premium");
-        service.addProductFor("premium");
-        double value = service.total();
-
-        assertEquals(1184.97, value, 0.001);
-    }
 }

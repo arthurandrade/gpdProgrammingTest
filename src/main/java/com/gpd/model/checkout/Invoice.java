@@ -9,6 +9,7 @@ import com.gpd.utils.DoubleUtils;
 public class Invoice {
 
     private double total;
+    private double discount;
     private List<CardProduct> products = new ArrayList<CardProduct>();
 
     public double getTotal() {
@@ -32,12 +33,21 @@ public class Invoice {
     }
 
     public void calculateTotal() {
-        double total = products.stream().map(product -> calculatePrice(product)).reduce(0.00, Double::sum);
+        double subtotal = products.stream().map(product -> calculatePrice(product)).reduce(0.00, Double::sum); 
+        double total = subtotal - discount;
         setTotal(DoubleUtils.round2(total));
     }
 
     private double calculatePrice(CardProduct product) {
         return product.getPrice() - product.getDiscount();
     }
+
+	public double getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
+	}
 
 }
